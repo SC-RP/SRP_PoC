@@ -1,0 +1,12 @@
+{
+  "rv_time": 1000,
+  "numOfNodes": 3,
+  "numOfVictims": 3,
+  "rate": 5,
+  "numOftxs": 100,
+  "experiment_id": 1,
+  "registeredSCs_FilePath": "files/registeredSCs.json",
+  "sentTxsRecords_Directory": "SentTxs_Records/",
+  "signedTxs_Directory": "files/signedTxs/ThreeThousandSignedTxs/",
+  "writingRecordsInterval": 50
+}

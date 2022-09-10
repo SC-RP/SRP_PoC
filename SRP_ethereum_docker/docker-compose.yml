@@ -1,0 +1,55 @@
+version: '2'
+services:
+  bootstrap:
+    build: geth-bootstrap
+    restart: on-failure
+    container_name: bootstrap
+    hostname: bootstrap
+    entrypoint: /root/start.sh
+    volumes:
+      - ./files/config.json:/root/config.json:rw
+      - ./GO_PKGs/selectionManager:/usr/local/go/src/selectionManager:rw
+      - ./GO_PKGs/ethereum/go-ethereum:/root/go/src/github.com/ethereum/go-ethereum:rw
+      - ./files/password:/root/files/password:ro
+      - ./files/genesis.json:/root/files/genesis.json:ro
+      - ./files/parameter_configuration.json:/root/files/parameter_configuration.json:ro
+      - ./files/keystore:/root/.ethereum/devchain/keystore:rw
+      - /etc/localtime:/etc/localtime:ro
+      - ./SRP_Evaluation:/root/go/bin/evaluation:rw
+      - ./SRP_SelectionEvents:/root/go/bin/events:rw
+    ports:
+      - "30303:30303"
+      - "30303:30303/udp"
+      - "8545:8545"
+      - "8546:8546"
+      - "6060:6060"
+    networks:
+      - localnet
+  eth:
+    build: geth-node
+    restart: on-failure
+    links:
+      - bootstrap
+    entrypoint: /root/startNode.sh
+    volumes:
+      - ./files/config.json:/root/config.json:rw
+      - ./GO_PKGs/selectionManager:/usr/local/go/src/selectionManager:rw
+      - ./GO_PKGs/ethereum/go-ethereum:/root/go/src/github.com/ethereum/go-ethereum:rw
+      - ./files/password:/root/files/password:ro
+      - ./files/genesis.json:/root/files/genesis.json:ro
+      - ./files/parameter_configuration.json:/root/files/parameter_configuration.json:ro
+      - ./files/keystore:/root/.ethereum/devchain/keystore:rw
+      - /etc/localtime:/etc/localtime:ro
+      - ./SRP_Evaluation:/root/go/bin/evaluation:rw
+      - ./SRP_SelectionEvents:/root/go/bin/events:rw
+    networks:
+      - localnet
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.55.0.0/24
+
+

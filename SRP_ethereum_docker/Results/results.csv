@@ -1,0 +1,1 @@
+Experiment,RVTime_(ms),Nodes,Senders,NumberOfTxs_perVictim,SendingRate,WaitingTime_(ms),Block_tps,SentDuration_tps,SuccessRate,TotalSuccessRate,ConfirmedTxs,UnconfirmedTxs,TotalNumberOfMinedTxs,Blocks,BlockSize_(txs),BlockTime_(s)
